@@ -1,0 +1,12 @@
+#!/bin/bash
+
+dirName="test"
+reportName="report.txt"
+successfulMessage="catalog test was created successfully"
+
+mkdir "$HOME/$dirName" && {
+        echo "$successfulMessage" > "$HOME/$reportName"
+        touch "$HOME/$dirName/$(date +"%F_%R")"
+}
+
+ping "www.net_nikogo.ru" || echo "$(date +"%F_%R") ping failed" >> "$HOME/$reportName"
