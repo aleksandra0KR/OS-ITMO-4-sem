@@ -3,10 +3,12 @@
 dirName="test"
 reportName="report.txt"
 successfulMessage="catalog test was created successfully"
+faileMessage="directory already exists"
 
-mkdir "$HOME/$dirName" && {
-        echo "$successfulMessage" > "$HOME/$reportName"
-        touch "$HOME/$dirName/$(date +"%F_%R")"
-}
+mkdir "$HOME/$dirName" && 
+echo "$successfulMessage" >> "$HOME/$reportName" || 
+echo "$faileMessage" >> "$HOME/$reportName" &&
+touch "$HOME/$dirName/$(date +"%F_%R")"
+
 
 ping "www.net_nikogo.ru" || echo "$(date +"%F_%R") ping failed" >> "$HOME/$reportName"
