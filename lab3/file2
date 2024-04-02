@@ -2,6 +2,5 @@
 fileName="report.txt"
 scriptFileName="file1"
 
-at -f ./$scriptFileName now
-at -f ./$scriptFileName now +1 min
-tail -f "$HOME/$fileName"
+sleep 120
+tail -f "$HOME/$fileName" | ./$scriptFileName
