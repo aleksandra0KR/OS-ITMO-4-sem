@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# 5 minute every hour every day  evry month  Friday
+
+echo "5 * * * 5 file1" | crontab
