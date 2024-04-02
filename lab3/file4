@@ -1,0 +1,20 @@
+#!/bin/bash
+
+./helper41 &
+./helper42 &
+./helper43 &
+
+pid1=$(pgrep helper41)
+pid3=$(pgrep helper43)
+
+if [[ ! "$pid3" ]]; then
+    echo "Process 'helper43' not found." >&2
+    exit 1
+fi
+
+kill -TERM $pid3 || { echo "Failed to terminate process '$pid3'. Aborting."; exit 1; }
+
+echo "Limiting CPU usage of process '$pid1' to 10%..."
+cpulimit -p $pid1 -l 10 -z || { echo "Failed to limit CPU usage of process '$pid1'. Aborting."; exit 1; }
+
+echo "Done limiting CPU usage of process '$pid1'"
