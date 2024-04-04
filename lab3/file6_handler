@@ -1,0 +1,31 @@
+#!/bin/bash
+
+usr1()
+{
+	let result=result+2
+	echo $result
+}
+
+usr2()
+{
+	let result=result*2
+	echo $result
+}
+
+sigterm()
+{
+	echo "program finished"
+	exit 0
+}
+
+echo $$ > .pid
+result=1
+
+trap 'usr1' USR1
+trap 'usr2' USR2
+trap 'sigterm' SIGTERM
+
+while true; do
+	sleep 1
+done
+
