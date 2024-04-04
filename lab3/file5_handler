@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+result=1
+operation="+"
+
+(tail -f pipe) | while true; do
+    read LINE
+    case "$LINE" in
+        "+")
+            operation="+"
+            ;;
+        "*")
+            operation="*"
+            ;;
+        "QUIT")
+            echo $result
+            echo "program finished"
+	pkill -f file5_generator
+	break     
+       ;;
+        *)
+            ((result = result $operation $LINE))
+            echo $result
+            ;;
+        
+	''|*[!0-9]*)
+            echo "Error input"
+            pkill -f file5_generator
+break
+            ;;
+    esac
+done
+
