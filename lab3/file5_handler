@@ -7,27 +7,26 @@ operation="+"
     read LINE
     case "$LINE" in
         "+")
-            operation="+"
+            	operation="+"
             ;;
         "*")
-            operation="*"
+           	 operation="*"
             ;;
         "QUIT")
-            echo $result
-            echo "program finished"
-	pkill -f file5_generator
-	break     
+            	echo $result
+            	echo "program finished"
+		pkill -f file5_generator
+		break     
        ;;
         *)
-            ((result = result $operation $LINE))
-            echo $result
+            	((result = result $operation $LINE))
+            	echo $result
             ;;
         
 	''|*[!0-9]*)
-            echo "Error input"
-            pkill -f file5_generator
+            	echo "Error input"
+            	pkill -f file5_generator
 break
             ;;
     esac
 done
-
