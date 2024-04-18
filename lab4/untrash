@@ -1,0 +1,54 @@
+#!/bin/bash
+
+if [[ $# -ne 1 ]]
+then
+	exit 1
+fi
+
+fileName=$1
+
+dirLog=~/trash.log
+
+allFromTrash=$(cat $dirLog)
+
+for path in $allFromTrash
+do
+	if [[ $path =~ $fileName ]]
+	then 
+		echo "Restore file? Y/N"
+		read respons
+		case $respons in
+			"Y")
+				cd ~/.trash 
+				fileNameFromTrash="$( echo "$path" | cut -d "=" -f 2 )"
+				cdFromTrash="$(echo "$path" | cut -d "=" -f 1 | grep -oP ".*/")"
+				if [[ ! -d $cdFromTrash ]]
+				then
+					echo "cd doesn't exist anymore"
+					ln $fileNameFromTrash ~/$fileName
+					rm $fileNameFromTrash
+				else
+					if [[ -e $cdFromTrash$fileName ]]
+					then
+						echo "This file already exists."
+						echo "Rename? Y/N"
+						read answer
+						if [[ $answer = "Y" ]]
+						then 
+							read newName
+							ln $fileNameFromTrash $cdFromTrash$newName
+							rm $fileNameFromTrash
+						fi	
+			
+					else
+						ln $fileNameFromTrash $cdFromTrash$fileName
+						rm $fileNameFromTrash
+					fi 
+			fi
+			;;
+			*)
+				$path >> $dirLog
+				;;
+			esac
+	fi
+done
