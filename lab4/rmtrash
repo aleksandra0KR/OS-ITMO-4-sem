@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [[ $# -ne 1 ]]
+then
+	echo "Error in name"
+	exit 1
+fi
+
+fileName=$1
+
+if [[ ! -f "$fileName" ]]
+then
+	echo "No such file"
+	exit 1
+fi
+
+directory=~/.trash
+
+if [[ ! -d $directory ]]
+then
+	mkdir $directory
+fi
+
+linkName="$fileName"$(date +%T)
+ln $fileName "$directory/$linkName"
+echo $linkName
+rm $fileName
+
+directoryCurrent=$(pwd)
+
+echo "$directoryCurrent/$fileName=$linkName" >>  ~/trash.log
