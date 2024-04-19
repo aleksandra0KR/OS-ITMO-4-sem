@@ -1,0 +1,14 @@
+#!/bin/bash
+
+
+dir="$HOME/restore"
+cd ~
+cd ~/$(ls | grep '^Backup-' | sort -n | tail -1)
+
+for currentFile in $(ls)
+do 
+	tempFileMatch=$(echo $currentFile | grep -P "^.*-\d{4}-\d{2}-\d{2}$" -o || echo 0)
+	if [[ $tempFileMatch == 0 ]] ; then
+		cp -R $currentFile $dir
+	fi
+done	
