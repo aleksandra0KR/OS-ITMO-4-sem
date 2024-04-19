@@ -1,0 +1,62 @@
+#!/bin/bash
+
+dateNow=$(date +%Y-%m-%d)
+dirBackUp="$HOME/Backup-$dateNow"
+
+cd ~
+latestDate="$(ls | grep -E "^Backup-" | sort -n | tail -1 | cut -d "-" -f 2,3,4)"
+
+if [[ $latestDate != "" ]]
+then
+	seconds=$(date -d $latestDate +%s)
+else
+	seconds=0
+fi
+
+secondsDiff=$(echo "($(date -d $dateNow +%s) - $seconds) / 86400" | bc)
+
+echo "before any action"
+if [[ $secondsDiff -gt 7 ]]
+then
+	echo "in 1"
+	mkdir -p "$dirBackUp"
+	echo "dir is created"
+	cd ~/source
+	AllFilesInSource=$(ls)
+	for file in $AllFilesInSource
+	do
+		cp -R $file $dirBackUp	
+	done
+	cd ~
+	echo "Files: $AllFilesInSource" >> $HOME/backup-report
+	echo
+
+else
+        cd ~/source
+	AllFilesInSource=$(ls)
+	cd ~
+	echo "in old dir"
+	echo "Files: $AllFilesInSource" >> $HOME/backup-report	
+	cd "$HOME/Backup-""$latestDate"
+	for file in $AllFilesInSource
+	do
+		if [[ -f $file ]]
+		then
+			
+			sizeFirst=$(ls -l ~/source/$file | awk '{print$5}')
+			sizeSecond=$(ls -l $file | awk '{print$5}')
+			if [[ $sizeFirst -ne $sizeSecond ]]
+			then
+				echo "rename" 
+				mv "$file" "$file-$dateNow"
+				cp -R ~/source/$file ~/Backup-$latestDate
+				echo "rename $file to $file-$dateNow" >> $HOME/backup-report
+			fi
+		else
+			echo "just copy"
+			cp -R $HOME/source/$file $HOME/Backup-$latestDate
+		fi		
+	done
+fi
+
+echo "haven't die"	
