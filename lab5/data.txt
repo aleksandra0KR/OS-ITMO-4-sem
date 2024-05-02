@@ -21,3 +21,15 @@ task 1
 [62025.125768] [ 545053]  1000 545053  1506898  1013216 12120064   491264             0 mem.bash
 [62025.125777] oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/app.slice/app-org.gnome.Terminal.slice/vte-spawn-1ff568ce-8ee7-46ef-9451-0ad593ba1515.scope,task=mem.bash,pid=545053,uid=1000
 [62025.125868] Out of memory: Killed process 545053 (mem.bash) total-vm:6027592kB, anon-rss:4052736kB, file-rss:128kB, shmem-rss:0kB, UID:1000 pgtables:11836kB oom_sc
+
+
+
+
+
+
+ sudo dmesg | grep mem[2]*.bash
+[  294.258620] [   1981]  1000  1981   944281   615168  7610368   326688             0 mem2.bash
+[  294.258623] oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/app.slice/app-org.gnome.Terminal.slice/vte-spawn-0bdc42ab-063b-4aca-83dd-cf52a7f2abd6.scope,task=mem2.bash,pid=1981,uid=1000
+[  294.258725] Out of memory: Killed process 1981 (mem2.bash) total-vm:3777124kB, anon-rss:2460544kB, file-rss:128kB, shmem-rss:0kB, UID:1000 pgtables:7432kB oom_score_adj:0
+[  296.373484] oom_reaper: reaped process 1981 (mem2.bash), now anon-rss:56kB, file-rss:0kB, shmem-rss:0kB
+

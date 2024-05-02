@@ -1,0 +1,13 @@
+#!/bin/bash
+
+N=$1
+K=$2
+
+counter=0
+echo "" > ans.log
+while [ "$counter" -lt "$K" ]; do
+	./newmem.bash "$N" &
+	sleep 1
+	echo $counter " " $N
+	((counter++))
+done
