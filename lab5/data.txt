@@ -1,0 +1,23 @@
+free       
+               total        used        free      shared  buff/cache   available
+Mem:         4953588     1824584      254556       71112     2874448     2767088
+Swap:        2969596          12     2969584
+
+swapon --show                   
+NAME      TYPE SIZE USED PRIO
+/swapfile file 2,8G  12K   -2
+
+
+
+task 1
+	
+	./mem.bash 
+[15]    545053 killed     ./mem.bash
+
+	report.log:
+	Counter = 7700000  Size = 77000000
+
+
+[62025.125768] [ 545053]  1000 545053  1506898  1013216 12120064   491264             0 mem.bash
+[62025.125777] oom-kill:constraint=CONSTRAINT_NONE,nodemask=(null),cpuset=/,mems_allowed=0,global_oom,task_memcg=/user.slice/user-1000.slice/user@1000.service/app.slice/app-org.gnome.Terminal.slice/vte-spawn-1ff568ce-8ee7-46ef-9451-0ad593ba1515.scope,task=mem.bash,pid=545053,uid=1000
+[62025.125868] Out of memory: Killed process 545053 (mem.bash) total-vm:6027592kB, anon-rss:4052736kB, file-rss:128kB, shmem-rss:0kB, UID:1000 pgtables:11836kB oom_sc
