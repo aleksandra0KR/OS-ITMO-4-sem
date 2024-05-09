@@ -3,10 +3,11 @@
 N=$1
 K=$2
 
-counter=0
+counter=1
 echo "" > ans.log
-while [ "$counter" -lt "$K" ]; do
-	./newmem.bash "$N" &
+while [[ $counter -le $K ]] 
+do
+	./newmem.bash $N &
 	sleep 1
 	echo $counter " " $N
 	((counter++))
