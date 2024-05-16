@@ -1,0 +1,12 @@
+#!/bin/bash
+
+N_LIST=(5 10 15 20 25 30 35 40 45 50)
+
+for N in "${N_LIST[@]}"; do
+  
+	for ((i = 1; i <= 20; i++)); do
+   		 /usr/bin/time -f "%E" -o "ans12/tmp${i}.txt" ./gamma_parallel "$N"
+    		tail -n 1 "ans12/tmp${i}.txt" >> "ans12/result_1_${i}.txt"
+	done
+done
+

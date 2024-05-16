@@ -1,6 +1,6 @@
 #!/bin/bash
 
 for ((i=1; i <= 20; i++)); do
-	rm "ans11/result_1_${i}.txt"
-	rm "ans11/tmp${i}.txt"
+	rm "ans12/result_1_${i}.txt"
+	rm "ans12/tmp${i}.txt"
 done
