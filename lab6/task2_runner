@@ -1,0 +1,8 @@
+#!/bin/bash
+
+n=20
+for ((i = 1; i <= 20; i++)); do
+	/usr/bin/time -f "%E" -o "ans21/tmp${i}.txt" ./task2 "$i"
+  tail -n 1 "ans21/tmp${i}.txt" >> "ans21/task2_result_${i}.txt"
+  echo "done: "$i" "
+done
